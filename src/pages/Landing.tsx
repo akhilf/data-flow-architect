@@ -29,9 +29,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       className={`flex flex-col items-center justify-center min-h-screen p-4 gap-8 ${
         theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
       }`}
+      role="main"
+      aria-label="Landing page"
     >
       {/* Hero Section */}
-      <div className="text-center max-w-2xl">
+      <div className="text-center max-w-2xl" role="region" aria-label="Hero section">
         <h1 className="text-5xl font-bold mb-4">Nexla Data Flow Architect</h1>
         <p className="text-xl">Describe your data pipeline in plain English</p>
       </div>

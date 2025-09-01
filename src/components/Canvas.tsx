@@ -47,9 +47,9 @@ export default function Canvas() {
   }));
 
   return (
-    <div className="flex flex-row gap-6 p-6 h-full">
+    <div className="flex flex-row gap-6 p-6 h-full" role="region" aria-label="Canvas area" tabIndex={0}>
       {/* Flow Diagram */}
-      <div className="flex flex-col gap-4 flex-1" style={{ minHeight: 400 }}>
+      <div className="flex flex-col gap-4 flex-1" style={{ minHeight: 400 }} role="region" aria-label="Flow diagram">
         <ReactFlow
           nodes={flowNodes}
           edges={flowEdges}

@@ -74,13 +74,13 @@ export default function Chat({ initialPrompt }: ChatProps) {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4 flex flex-col">
+    <div className="flex flex-col h-full" role="region" aria-label="Chat area">
+      <div className="flex-1 overflow-y-auto p-4 flex flex-col" role="list" aria-label="Message list">
         {messages.map((m: any) => (
           <MessageBubble key={m.id} message={m} />
         ))}
       </div>
-      <div className="flex p-2 border-t">
+      <div className="flex p-2 border-t" role="form" aria-label="Send message form">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}

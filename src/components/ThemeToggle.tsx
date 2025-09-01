@@ -9,7 +9,15 @@ export default function ThemeToggle() {
   }, [dark]);
 
   return (
-    <button onClick={() => setDark(!dark)} className="p-2 rounded-full">
+    <button
+      onClick={() => setDark(!dark)}
+      className="p-2 rounded-full"
+      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      tabIndex={0}
+      onKeyDown={e => {
+        if (e.key === "Enter" || e.key === " ") setDark(!dark);
+      }}
+    >
       {dark ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );

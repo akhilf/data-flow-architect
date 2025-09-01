@@ -18,13 +18,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-row">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-row" role="main" aria-label="Main application area">
       {/* Chat Panel */}
-      <div className="w-full md:w-1/3 border-r border-gray-200 dark:border-gray-700 h-screen overflow-y-auto">
+      <div className="w-full md:w-1/3 border-r border-gray-200 dark:border-gray-700 h-screen overflow-y-auto" role="region" aria-label="Chat panel">
         <Chat initialPrompt={prompt} />
       </div>
       {/* Canvas Panel */}
-      <div className="hidden md:block w-2/3 h-screen overflow-y-auto">
+      <div className="hidden md:block w-2/3 h-screen overflow-y-auto" role="region" aria-label="Canvas panel">
         <Canvas />
       </div>
     </div>
