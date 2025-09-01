@@ -1,7 +1,8 @@
 
 <img width="1716" height="752" alt="Screenshot 2025-08-31 172143" src="https://github.com/user-attachments/assets/881f0110-b9a6-4b29-9105-6a2fb417a8cb" />
 
-<img width="1916" height="1002" alt="Screenshot 2025-08-31 172220" src="https://github.com/user-attachments/assets/4ea26771-2bde-40b1-b71c-ba6bc1250489" />
+<img width="1900" height="983" alt="Screenshot 2025-09-01 070339" src="https://github.com/user-attachments/assets/12158e01-614a-40e2-99dd-1c8af9a89ac4" />
+
 
 
 
@@ -13,6 +14,18 @@ Data Flow Architect is a modern React + TypeScript + Tailwind CSS frontend for d
 Describe your data pipeline in plain English, interact with an AI-powered chat, and see your pipeline visualized instantly as an interactive flow diagram.
 
 ## Features
+- Landing Page with hero section, large input field, and example prompt buttons
+- Chat interface with AI responses
+- Split-pane layout: chat and visual canvas side-by-side (desktop)
+- Visual FlowDiagram with three node types:
+	- Source (databases, APIs) — blue
+	- Transform (data processing) — purple
+	- Destination (warehouses, APIs) — green
+- Node status indicators:
+	- Pending (orange) → Partial (blue) → Complete (green) → Error (red)
+- Properties panel showing configuration details for selected node
+- Dark/light theme toggle
+- Mobile-responsive design
 
 - **Landing Page**: Hero section with a large input field and example prompt buttons for quick starts.
 - **Chat Interface**: Conversational UI with AI responses to guide pipeline creation and configuration.
