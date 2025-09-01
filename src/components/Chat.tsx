@@ -3,11 +3,26 @@ import { useAppStore } from "../store/useAppStore";
 import MessageBubble from "./MessageBubble";
 import { Send } from "lucide-react";
 
-export default function Chat() {
+
+interface ChatProps {
+  initialPrompt?: string;
+}
+
+export default function Chat({ initialPrompt }: ChatProps) {
   const { messages, addMessage, setPipelineFromPrompt } = useAppStore();
   const [input, setInput] = useState("");
+  const [sentInitial, setSentInitial] = useState(false);
 
-  const sendMessage = () => {
+  // Send initial prompt as first message
+  if (initialPrompt && !sentInitial) {
+    setInput(initialPrompt);
+    setSentInitial(true);
+    setTimeout(() => {
+      sendMessage();
+    }, 100);
+  }
+
+  function sendMessage() {
     if (!input.trim()) return;
 
     const userMsg = { id: Date.now().toString(), author: "user" as const, text: input };
@@ -33,7 +48,7 @@ export default function Chat() {
     }
 
     setInput("");
-  };
+  }
 
   return (
     <div className="flex flex-col h-full">

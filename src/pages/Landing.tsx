@@ -9,18 +9,18 @@ const examplePrompts = [
   "Stream Stripe payments to Google Sheets",
 ];
 
-const LandingPage = () => {
-  const navigate = useNavigate();
+
+interface LandingPageProps {
+  onStart?: (desc: string) => void;
+}
+
+const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
   const { theme } = useAppStore();
   const [inputValue, setInputValue] = useState("");
 
-  const handleNavigate = (prompt: string) => {
-    navigate("/chat", { state: { prompt } });
-  };
-
   const handleSubmit = () => {
     if (inputValue.trim() === "") return;
-    navigate("/chat", { state: { prompt: inputValue } });
+    if (onStart) onStart(inputValue);
     setInputValue("");
   };
 
@@ -60,7 +60,7 @@ const LandingPage = () => {
           <button
             key={prompt}
             className="px-4 py-2 bg-blue-200 hover:bg-blue-300 rounded transition"
-            onClick={() => handleNavigate(prompt)}
+            onClick={() => onStart && onStart(prompt)}
           >
             {prompt}
           </button>
