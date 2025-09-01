@@ -1,7 +1,8 @@
 
 <img width="1716" height="752" alt="Screenshot 2025-08-31 172143" src="https://github.com/user-attachments/assets/881f0110-b9a6-4b29-9105-6a2fb417a8cb" />
 
-<img width="1916" height="1002" alt="Screenshot 2025-08-31 172220" src="https://github.com/user-attachments/assets/4ea26771-2bde-40b1-b71c-ba6bc1250489" />
+<img width="1900" height="983" alt="Screenshot 2025-09-01 070339" src="https://github.com/user-attachments/assets/12158e01-614a-40e2-99dd-1c8af9a89ac4" />
+
 
 
 # data-flow-architect
