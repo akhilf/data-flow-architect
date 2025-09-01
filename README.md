@@ -11,11 +11,18 @@
 This project is a React + TypeScript + Tailwind CSS frontend that allows users to describe data pipelines in plain English and see them visualized as interactive flow diagrams.
 
 ## Features
-- Landing Page with hero, input field, and example prompts
+- Landing Page with hero section, large input field, and example prompt buttons
 - Chat interface with AI responses
-- Visual FlowDiagram with Source → Transform → Destination nodes
+- Split-pane layout: chat and visual canvas side-by-side (desktop)
+- Visual FlowDiagram with three node types:
+	- Source (databases, APIs) — blue
+	- Transform (data processing) — purple
+	- Destination (warehouses, APIs) — green
+- Node status indicators:
+	- Pending (orange) → Partial (blue) → Complete (green) → Error (red)
+- Properties panel showing configuration details for selected node
 - Dark/light theme toggle
-- Responsive design for mobile & desktop
+- Mobile-responsive design
 
 ## Run Locally
 ```bash
