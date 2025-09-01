@@ -1,26 +1,29 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAppStore } from "../store/useAppStore";
 import MessageBubble from "./MessageBubble";
 import { Send } from "lucide-react";
-
 
 interface ChatProps {
   initialPrompt?: string;
 }
 
 export default function Chat({ initialPrompt }: ChatProps) {
-  const { messages, addMessage, setPipelineFromPrompt } = useAppStore();
+  const { messages, addMessage, setPipelineFromPrompt, updateNodeStatus, updateNodeConfig, nodes } = useAppStore();
   const [input, setInput] = useState("");
   const [sentInitial, setSentInitial] = useState(false);
+  const [step, setStep] = useState<null | "pipeline" | "shopifyUrl" | "fields" | "done">(null);
+  const [pendingNode, setPendingNode] = useState<string | null>(null);
 
-  // Send initial prompt as first message
-  if (initialPrompt && !sentInitial) {
-    setInput(initialPrompt);
-    setSentInitial(true);
-    setTimeout(() => {
-      sendMessage();
-    }, 100);
-  }
+  useEffect(() => {
+    if (initialPrompt && !sentInitial) {
+      setInput(initialPrompt);
+      setSentInitial(true);
+      setTimeout(() => {
+        sendMessage();
+      }, 100);
+    }
+    // eslint-disable-next-line
+  }, [initialPrompt, sentInitial]);
 
   function sendMessage() {
     if (!input.trim()) return;
@@ -28,23 +31,43 @@ export default function Chat({ initialPrompt }: ChatProps) {
     const userMsg = { id: Date.now().toString(), author: "user" as const, text: input };
     addMessage(userMsg);
 
-    // simple mock AI behavior
     const lower = input.toLowerCase();
-    if (lower.includes("connect") && (lower.includes("to") || lower.includes("->"))) {
-      const aiMsg = {
-        id: (Date.now()+1).toString(),
-        author: "ai" as const,
-        text: "Got it — building the pipeline. Can you provide specifics (e.g. store URL or fields)?",
-      };
-      addMessage(aiMsg);
+    if (step === null && lower.includes("connect") && (lower.includes("to") || lower.includes("->"))) {
       setPipelineFromPrompt(input);
-    } else {
-      const aiMsg = {
+      setStep("shopifyUrl");
+      setPendingNode("n1");
+      addMessage({
         id: (Date.now()+1).toString(),
-        author: "ai" as const,
-        text: "I didn't understand that. Try 'Connect Shopify to BigQuery'.",
-      };
-      addMessage(aiMsg);
+        author: "ai",
+        text: "What's your Shopify store URL?",
+      });
+    } else if (step === "shopifyUrl" && pendingNode) {
+      updateNodeConfig(pendingNode, { url: input });
+      updateNodeStatus(pendingNode, "partial"); // Shopify node now partial
+      setStep("fields");
+      addMessage({
+        id: (Date.now()+2).toString(),
+        author: "ai",
+        text: "Which data fields would you like to extract (e.g. Orders, Customers, Products)?",
+      });
+    } else if (step === "fields" && pendingNode) {
+      updateNodeConfig(pendingNode, { fields: input });
+      updateNodeStatus(pendingNode, "complete"); // Shopify node now complete
+      updateNodeStatus("n2", "partial"); // Transform node now partial
+      updateNodeStatus("n3", "pending"); // Destination node stays pending
+      setStep("done");
+      setPendingNode(null);
+      addMessage({
+        id: (Date.now()+3).toString(),
+        author: "ai",
+        text: "Thanks! Your pipeline is being configured."
+      });
+    } else {
+      addMessage({
+        id: (Date.now()+4).toString(),
+        author: "ai",
+        text: "I didn't understand that. Try 'Connect Shopify orders to Snowflake'.",
+      });
     }
 
     setInput("");
@@ -53,7 +76,7 @@ export default function Chat({ initialPrompt }: ChatProps) {
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto p-4 flex flex-col">
-        {messages.map((m) => (
+        {messages.map((m: any) => (
           <MessageBubble key={m.id} message={m} />
         ))}
       </div>
